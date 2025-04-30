@@ -4,10 +4,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:sippy/router/app_route.dart';
 import 'package:sippy/router/router_observer.dart';
+import 'package:sippy/utils/locator.dart';
 import 'package:sippy/utils/theme.dart';
 
-void main() {
+void main() async{   
+   WidgetsFlutterBinding.ensureInitialized();
+      await locatorSetup();
   runApp(const MyApp());
+
 }
 
 class MyApp extends StatelessWidget {

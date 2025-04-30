@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 
 extension NumExtension on num {
   SizedBox get wi {
@@ -39,4 +40,8 @@ extension IntExtension on int {
         return '${this}th';
     }
   }
+}
+String formatNaira(num amount) {
+  final formatter = NumberFormat('#,##0.00', 'en_NG'); // or '#,##0' for whole numbers
+  return '₦${formatter.format(amount)}';
 }
