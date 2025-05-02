@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sippy/model/session_model.dart';
 import 'package:uuid/uuid.dart';
 
 class LocalUserService {
@@ -7,6 +10,7 @@ class LocalUserService {
   static const _inviteeNameKey = 'invitee_name';
 static const _sessionIdKey = 'shared_session_id';
 static const _creatorName = 'creator_name';
+
 
   /// Get or create a unique ID for the current user
   static Future<String> getOrCreateUserId() async {
@@ -62,8 +66,28 @@ static Future<String?> getSessionId() async {
   final prefs = await SharedPreferences.getInstance();
   return prefs.getString(_sessionIdKey);
 }
+  static Future<void> saveFullSession(ShoppingSession session) async {
+    final prefs = await SharedPreferences.getInstance();
+    final key = "session_${session.sessionId}";
+    final sessionJson = json.encode(session.toJson());
+    await prefs.setString(key, sessionJson);
+  }
 
-  /// Clear all local user data (optional for session reset)
+static Future<ShoppingSession?> getFullSession(String sessionId) async {
+  final prefs = await SharedPreferences.getInstance();
+  final raw = prefs.getString("session_$sessionId");
+
+  if (raw == null) return null;
+
+  try {
+    final decoded = json.decode(raw);
+    return ShoppingSession.fromJson(decoded); 
+  } catch (e) {
+    return null;
+  }
+}
+
+
   static Future<void> clear() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove(_userIdKey);

@@ -109,17 +109,13 @@ class ProductDetailsBottom extends StatelessWidget {
                                       .getOrCreateUserId();
                                   if (model.cartViewModel.currentSessionId ==
                                       null) {
-                                    model.cartViewModel.createSession(
-                                      createdBy: currentUserId,
-                                      friends: [], // Optional: List of friend UUIDs
-                                    );
-                                  }
-                                  model.cartViewModel.addToCart(
+                                      model.cartViewModel.addToCart(
                                   quantity:  model.cartNumber,
+                                  createdBy:  currentUserId,
+                                      friends: [],
                                   
                                       product: product,);
                                   final rootContext = context;
-                                  await LocalUserService.saveSessionId(currentUserId);
                                   Future.delayed(
                                       const Duration(milliseconds: 500), () {
                                     showDialog(
@@ -143,6 +139,8 @@ class ProductDetailsBottom extends StatelessWidget {
                                       ),
                                     );
                                   });
+                                  }
+                               
                                 },
                                 showCheckout: showCheckout,
                                 quantity: model.cartNumber,
@@ -186,6 +184,7 @@ class CartDetails extends StatelessWidget {
                 dimension: 19,
                 child: SvgPicture.asset(
                   'assets/svgs/shopping-cart.svg',
+                  // ignore: deprecated_member_use
                   color: appColors.white,
                 )),
             NormalText(

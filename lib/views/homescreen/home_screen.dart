@@ -1,9 +1,9 @@
+// ignore_for_file: use_build_context_synchronously, prefer_const_constructors_in_immutables, deprecated_member_use
+
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:sippy/router/app_route.dart';
-import 'package:sippy/router/navigator.dart';
 import 'package:sippy/utils/constants/num_extensions.dart';
 import 'package:sippy/utils/flutter_toast.dart';
 import 'package:sippy/utils/locator.dart';
@@ -125,7 +125,17 @@ class HomeDialog extends StatelessWidget {
                         icon: 'assets/svgs/cart-arrow-down-svgrepo-com.svg'),
                     SessionOption(
                         title: 'Existing Session',
-                        function: () {},
+                        function: () async {
+                          String? sessionId =
+                              await LocalUserService.getSessionId();
+
+                          if (sessionId != null) {
+                            serviceLocator<CartViewModel>().joinExistingSession(
+                                sessionId,
+                                context,
+                                () => Navigator.of(context).pop());
+                          }
+                        },
                         icon: 'assets/svgs/shopping-cart.svg'),
                   ],
                 ),
@@ -196,9 +206,8 @@ class _FriendSessionBottomsheetState extends State<FriendSessionBottomsheet> {
     updateLoader(true);
     Future.delayed(const Duration(seconds: 2))
         .then((value) => updateLoader(false));
-    await LocalUserService.saveInviteeName("${_textEditingController.text}");
-    showSuccessFlutterToast(
-        "You have joined ${widget.name} shared cart session");
+    await LocalUserService.saveInviteeName(_textEditingController.text);
+    await LocalUserService.saveCreatorName(_textEditingController.text);
   }
 
   @override
@@ -217,7 +226,6 @@ class _FriendSessionBottomsheetState extends State<FriendSessionBottomsheet> {
                     40.0.wi,
                     GestureDetector(
                       onTap: () {
-                        widget.onClose();
                         widget.onClose();
                       },
                       child: Icon(
@@ -274,17 +282,19 @@ class _FriendSessionBottomsheetState extends State<FriendSessionBottomsheet> {
                     if (!formKey.currentState!.validate()) {
                       return;
                     } else {
-                      joinSession();
-
                       String? sessionId = await LocalUserService.getSessionId();
 
                       if (sessionId != null) {
-                        viewModel.joinSession(sessionId);
-                        AppNavigator.of(context).navigate(
-                            CartRoute(model: serviceLocator<CartViewModel>()));
-                        viewModel.updateDialog();
-                                await LocalUserService.saveCreatorName("${_textEditingController.text}");
-
+                        viewModel.joinSession(sessionId, context, widget.name,
+                            () async {
+                          WidgetsBinding.instance
+                              .addPostFrameCallback((_) async {
+                            if (context.mounted) viewModel.updateDialog();
+                            if (context.mounted) await joinSession();
+                            if (context.mounted) Navigator.of(context).pop();
+                            if (context.mounted) Navigator.of(context).pop();
+                          });
+                        });
                       }
                     }
                   },
@@ -348,9 +358,8 @@ class _NewSessionBottomSheetState extends State<NewSessionBottomSheet> {
       updateGenerating(true);
       showSuccessFlutterToast("Email sent to ${_textEditingController.text}");
     });
-    await LocalUserService.saveInviterName("${_textEditingController.text}");
-        await LocalUserService.saveCreatorName("${_textEditingController.text}");
-
+    await LocalUserService.saveInviterName(_textEditingController.text);
+    await LocalUserService.saveCreatorName(_textEditingController.text);
   }
 
   @override

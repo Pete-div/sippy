@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:sippy/model/product_model.dart';
@@ -118,7 +117,7 @@ class ProductDepailsPopup extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     40.0.hi,
-                    NormalText('Product Details',),
+                    const NormalText('Product Details',),
                     40.0.hi,
                    
                     40.0.hi

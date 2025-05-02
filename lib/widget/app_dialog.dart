@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:sippy/utils/colors.dart';
 import 'package:sippy/utils/constants/app_colors.dart';
 
 
@@ -13,8 +12,7 @@ class DialogAction {
 }
 
 class AppDialog extends StatelessWidget {
-  // final Widget child;
-  // final Color buttonColor;
+
 
   final List<DialogAction>? actions;
   final String message;
@@ -110,15 +108,10 @@ Future showAlertDialog(BuildContext context, Widget content,
   AlertDialog alert = AlertDialog(
     contentPadding: const EdgeInsets.all(10),
     backgroundColor: AppColors.white,
-    content: Stack(
-      children: [
-        Container(
-          margin:
-              const EdgeInsets.only(top: 20, left: 4, right: 4, bottom: 10),
-          child: content,
-        ),
-         Positioned(top: 0, right: 0, child: CloseButton(color: appColors.black,))
-      ],
+    content: Container(
+      margin:
+          const EdgeInsets.only(top: 20, left: 4, right: 4, bottom: 10),
+      child: content,
     ),
   );
   // show the dialog

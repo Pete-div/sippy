@@ -1,3 +1,5 @@
+// ignore_for_file: unused_field, unused_element
+
 import 'package:flutter/material.dart';
 import 'package:sippy/model/session_model.dart';
 import 'package:sippy/model/product_model.dart';

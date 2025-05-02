@@ -98,19 +98,19 @@ class MkInputField extends StatelessWidget {
             filled: true,
             fillColor: Colors.white,
             border: OutlineInputBorder(
-              borderSide: BorderSide(width: 1, color: Color(0xffE1E4E8)),
+              borderSide: const BorderSide(width: 1, color: Color(0xffE1E4E8)),
               borderRadius: BorderRadius.circular(18),
             ),
             enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(width: 1, color: Color(0xffE1E4E8)),
+              borderSide: const BorderSide(width: 1, color: Color(0xffE1E4E8)),
               borderRadius: BorderRadius.circular(18),
             ),
             disabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(width: 1, color: Color(0xffE1E4E8).withOpacity(0.3)),
+              borderSide: BorderSide(width: 1, color: const Color(0xffE1E4E8).withOpacity(0.3)),
               borderRadius: BorderRadius.circular(18),
             ),
             focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(width: 1, color: Color(0xffE1E4E8)),
+              borderSide: const BorderSide(width: 1, color: Color(0xffE1E4E8)),
               borderRadius: BorderRadius.circular(18),
             ),
             labelText: textFieldLabel ? label : null,
@@ -231,7 +231,7 @@ class CurrencyPtBrInputFormatter extends TextInputFormatter {
 
     double value = double.parse(newValue.text);
     final formatter = NumberFormat("#,##", "en_US");
-    String newText = "\$ " + formatter.format(value / 100);
+    String newText = "\$ ${formatter.format(value / 100)}";
     return newValue.copyWith(
         text: newText,
         selection: TextSelection.collapsed(offset: newText.length));
