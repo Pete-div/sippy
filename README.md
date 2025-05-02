@@ -1,16 +1,26 @@
-# sippy
+This project is a Flutter shopping cart app that allows users to shop collaboratively in real-time using a shared cart session.
 
-A new Flutter project.
+✅ Key Features
+🔄 Stacked (MVVM) architecture using the stacked package for clean separation of concerns.
 
-## Getting Started
+👥 A creator or invited user can start or join a shared cart session.
 
-This project is a starting point for a Flutter application.
+🛍️ Each participant can add products to the shared cart.
 
-A few resources to get you started if this is your first Flutter project:
+👤 Each item tracks who added it, with support for multiple users in one session.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+✅ The session can be marked as done by any participant once shopping is complete.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+🧠 Architecture
+This project uses:
+
+MVVM pattern via the stacked package
+
+SharedPreferences to persist cart session data locally
+
+Provider/Service structure for session and user state
+
+Models for product and cart items
+
+Reactive ViewModels for UI responsiveness
+
