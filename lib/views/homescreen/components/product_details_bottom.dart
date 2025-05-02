@@ -104,7 +104,6 @@ class ProductDetailsBottom extends StatelessWidget {
                             },
                             child: CartDetails(
                                 function: () async {
-                                                                    print('dkdkdaf');
 
                                   String currentUserId = await LocalUserService
                                       .getOrCreateUserId();
@@ -116,9 +115,11 @@ class ProductDetailsBottom extends StatelessWidget {
                                     );
                                   }
                                   model.cartViewModel.addToCart(
-                                      product: product, addedBy: currentUserId);
+                                  quantity:  model.cartNumber,
+                                  
+                                      product: product,);
                                   final rootContext = context;
-
+                                  await LocalUserService.saveSessionId(currentUserId);
                                   Future.delayed(
                                       const Duration(milliseconds: 500), () {
                                     showDialog(

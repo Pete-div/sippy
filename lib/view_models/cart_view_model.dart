@@ -1,6 +1,7 @@
 import 'package:sippy/model/cart_model.dart';
 import 'package:sippy/model/product_model.dart';
 import 'package:sippy/model/session_model.dart';
+import 'package:sippy/utils/share_preference.dart';
 import 'package:stacked/stacked.dart';
 import 'package:uuid/uuid.dart';
 
@@ -8,26 +9,35 @@ class CartViewModel extends  BaseViewModel {
   final Map<String, ShoppingSession> _sessions = {};
 String? currentSessionId;
   ShoppingSession? currentSession;
+bool isSessionCreated =false;
+
+void updateDialog(){
+  isSessionCreated=!isSessionCreated;
+  notifyListeners();
+}
+
+
 
    final List<CartItem> _cartItems = [];
 
 List<CartItem> get cartItems => currentCartItems;
 void addToCart({
+  
   required Product product,
-  required String addedBy,
   int quantity = 1,
-}) {
+}) async{
+                  final     creator=         await LocalUserService.getCreatorName();
+
   if (currentSessionId == null || !_sessions.containsKey(currentSessionId)) {
     throw Exception("No active session.");
   }
-
   final session = _sessions[currentSessionId!]!;
   final cartItems = session.cartItems;
 
   int existingIndex = cartItems.indexWhere(
     (item) =>
         item.product.name == product.name &&
-        item.addedBy == addedBy &&
+        item.addedBy == creator &&
         item.sessionId == session.sessionId,
   );
 
@@ -35,20 +45,19 @@ void addToCart({
     cartItems[existingIndex] = CartItem(
       product: product,
       quantity: cartItems[existingIndex].quantity + quantity,
-      addedBy: addedBy,
+      addedBy: creator ??'Joe',
       sessionId: session.sessionId,
     );
   } else {
     cartItems.add(CartItem(
       product: product,
       quantity: quantity,
-      addedBy: addedBy,
+      addedBy: creator ??'Joe',
       sessionId: session.sessionId,
     ));
   }
 
   notifyListeners();
-  print("the toaal :${cartTotal}");
 
 }
 

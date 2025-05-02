@@ -16,7 +16,9 @@ class CartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(body: SafeArea(child: CartList(vModel: model,)),);
+    return  Scaffold(
+      appBar: AppBar(title:const NormalText('shared Cart',size: 20,weight: FontWeight.w600,),surfaceTintColor: Colors.transparent,),
+      body: SafeArea(child: CartList(vModel: model,)),);
   }
 }
 
@@ -32,7 +34,9 @@ final CartViewModel vModel;
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: Row(
                     children: [
-                      NormalText('Subtotal',
+                     const  NormalText('Subtotal',
+                      size: 14,
+                      weight: FontWeight.w400,
                         ),
                       
                       NormalText(
@@ -124,8 +128,11 @@ class CartItemTile extends StatelessWidget {
                         
                         ],
                       ),
+                      4.hi,
                       Divider(
                           height: 1, color: appColors.primary, thickness: 0.1),
+                                                2.hi,
+
                       Row(
                         children: [
                           SizedBox(
@@ -187,7 +194,15 @@ class CartItemTile extends StatelessWidget {
                           ),
                         ],
                       ),
-                    ],
+                      10.wi,
+                                            4.hi,
+
+                      NormalText('Created by: ${item.addedBy}',
+                          color: appColors.primary,
+                             ),
+                                         4.hi,
+
+                   ],
                   )),
                   10.0.wi,
                 ])));

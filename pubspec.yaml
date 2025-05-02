@@ -45,6 +45,10 @@ dependencies:
   intl:
   uuid: ^4.0.0 
   shared_preferences: ^2.0.13
+  clipboard: ^0.1.3
+  fluttertoast: ^8.2.1
+
+
 
 
 

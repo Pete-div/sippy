@@ -14,9 +14,10 @@ import 'package:stacked/stacked.dart';
 class ProductDetailsScreen extends StatelessWidget {
   final Product product;
   final bool showCheckout;
+  final String name;
 
   const ProductDetailsScreen(
-      {super.key, required this.product, this.showCheckout = true});
+      {super.key, required this.product, this.showCheckout = true,required this.name});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +34,7 @@ class ProductDetailsScreen extends StatelessWidget {
               ),
           backgroundColor: appColors.white,
           bottomNavigationBar:
-              ProductDetailsBottom(product: product, showCheckout: showCheckout,quantity:model.cartNumber ,)
+              ProductDetailsBottom(product: product, showCheckout: showCheckout,quantity:model.cartNumber,)
                   .animate()
                   .fadeIn(duration: 400.ms, delay: 500.ms)
                   .slideY(duration: 400.ms, delay: 500.ms, begin: 1),

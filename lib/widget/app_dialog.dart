@@ -103,36 +103,21 @@ class AppDialog extends StatelessWidget {
                 onPressed: ScaffoldMessenger.of(context).clearMaterialBanners,
                 child: const Text('Close'))
           ]));
-  // MotionToast.success(
-  //   title: title ?? "Success",
-  //   description: message,
-  //   position: MOTION_TOAST_POSITION.TOP,
-  //   borderRadius: 1,
-  //   animationType: ANIMATION.FROM_RIGHT,
-  //   titleStyle: Theme.of(context).textTheme.headline6!,
-  //   descriptionStyle: Theme.of(context).textTheme.bodyText1!,
-  // ).show(context);
 }
 
 Future showAlertDialog(BuildContext context, Widget content,
-    {double rightMargin = 50}) {
+    {double rightMargin = 20}) {
   AlertDialog alert = AlertDialog(
     contentPadding: const EdgeInsets.all(10),
-    backgroundColor: AppColors.infoColor,
+    backgroundColor: AppColors.white,
     content: Stack(
       children: [
         Container(
-          height: MediaQuery.of(context).size.height - 200,
-          // width: MediaQuery.of(context).size.width - 500,
-          // margin: const EdgeInsets.symmetric(
-          //   horizontal: 80,
-          //   vertical: 40,
-          // ),
           margin:
-              const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 10),
+              const EdgeInsets.only(top: 20, left: 4, right: 4, bottom: 10),
           child: content,
         ),
-        const Positioned(top: 0, right: 0, child: CloseButton())
+         Positioned(top: 0, right: 0, child: CloseButton(color: appColors.black,))
       ],
     ),
   );

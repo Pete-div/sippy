@@ -45,6 +45,7 @@ abstract class _$AppRouter extends RootStackRouter {
           key: args.key,
           product: args.product,
           showCheckout: args.showCheckout,
+          name: args.name,
         ),
       );
     },
@@ -135,6 +136,7 @@ class ProductDetailsRoute extends PageRouteInfo<ProductDetailsRouteArgs> {
     Key? key,
     required Product product,
     bool showCheckout = true,
+     String? name,
     List<PageRouteInfo>? children,
   }) : super(
           ProductDetailsRoute.name,
@@ -142,6 +144,7 @@ class ProductDetailsRoute extends PageRouteInfo<ProductDetailsRouteArgs> {
             key: key,
             product: product,
             showCheckout: showCheckout,
+            name: name ??'',
           ),
           initialChildren: children,
         );
@@ -157,6 +160,7 @@ class ProductDetailsRouteArgs {
     this.key,
     required this.product,
     this.showCheckout = true,
+    required this.name,
   });
 
   final Key? key;
@@ -165,9 +169,11 @@ class ProductDetailsRouteArgs {
 
   final bool showCheckout;
 
+  final String name;
+
   @override
   String toString() {
-    return 'ProductDetailsRouteArgs{key: $key, product: $product, showCheckout: $showCheckout}';
+    return 'ProductDetailsRouteArgs{key: $key, product: $product, showCheckout: $showCheckout, name: $name}';
   }
 }
 
